@@ -1,0 +1,30 @@
+/* Asegurarse de que el botón de la papelera esté inicialmente oculto */
+ion-item .delete-button {
+    display: none;
+  }
+  
+  /* Mostrar el botón cuando el ratón pase sobre el ion-item */
+  ion-item:hover .delete-button {
+    display: flex; /* O inline-flex para que se vea correctamente el botón */
+  }
+
+  ion-item .update-button {
+    display: none;
+  }
+  
+  /* Mostrar el botón cuando el ratón pase sobre el ion-item */
+  ion-item:hover .update-button {
+    display: flex; /* O inline-flex para que se vea correctamente el botón */
+  }
+  
+  /* Opcional: Estilizar el botón de la papelera para que sea menos invasivo hasta que se necesite */
+  ion-item .delete-button {
+    color: var(--ion-color-danger); /* Color de papelera */
+    transition: opacity 0.3s ease; /* Transición suave al aparecer/desaparecer */
+  }
+
+  ion-item .update-button {
+    color: var(--ion-color-primary);
+    transition: opacity 0.3s ease;
+  }
+  

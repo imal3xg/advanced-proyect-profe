@@ -1,0 +1,467 @@
+{
+  "personas": [
+    {
+      "id": "prtg7tph",
+      "nombre": "Mariana",
+      "apellidos": "Pineda",
+      "email": "mariana.pineda@example.com",
+      "genero": "male",
+      "grupoId": "gtpurezc",
+      "edad": "34"
+    },
+    {
+      "id": "px48y56t",
+      "nombre": "David",
+      "apellidos": "Pineda",
+      "email": "david.pineda@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pj9j7pqs",
+      "nombre": "Esteban",
+      "apellidos": "Torres",
+      "email": "esteban.torres@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "pnlqu9qr",
+      "nombre": "Cristian",
+      "apellidos": "Perez",
+      "email": "cristian.perez@example.com",
+      "genero": "female",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "p6e9iatq",
+      "nombre": "Sara",
+      "apellidos": "Torres",
+      "email": "sara.torres@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "pb00ewfa",
+      "nombre": "Manuel",
+      "apellidos": "Lopez",
+      "email": "manuel.lopez@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "pmw60kuu",
+      "nombre": "Luis",
+      "apellidos": "Alvarez",
+      "email": "luis.alvarez@example.com",
+      "genero": "female",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "pl95u822",
+      "nombre": "Diego",
+      "apellidos": "Salas",
+      "email": "diego.salas@example.com",
+      "genero": "male",
+      "grupoId": "gjp48ezu"
+    },
+    {
+      "id": "pu2l3zst",
+      "nombre": "Alberto",
+      "apellidos": "Gomez",
+      "email": "alberto.gomez@example.com",
+      "genero": "female",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "p58nalgp",
+      "nombre": "Gonzalo",
+      "apellidos": "Gutierrez",
+      "email": "gonzalo.gutierrez@example.com",
+      "genero": "male",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "p6b02haq",
+      "nombre": "Luis",
+      "apellidos": "Ramirez",
+      "email": "luis.ramirez@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "pbw61xao",
+      "nombre": "Felipe",
+      "apellidos": "Cruz",
+      "email": "felipe.cruz@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pzrgnvmx",
+      "nombre": "Cristian",
+      "apellidos": "Jimenez",
+      "email": "cristian.jimenez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pt4u23vh",
+      "nombre": "Juan",
+      "apellidos": "Jimenez",
+      "email": "juan.jimenez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pnphjhka",
+      "nombre": "Isabel",
+      "apellidos": "Pineda",
+      "email": "isabel.pineda@example.com",
+      "genero": "female",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "pz6mol0q",
+      "nombre": "Luis",
+      "apellidos": "Cano",
+      "email": "luis.cano@example.com",
+      "genero": "female",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "pnpz6wfe",
+      "nombre": "Jose",
+      "apellidos": "Gomez",
+      "email": "jose.gomez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "powf5p27",
+      "nombre": "Diego",
+      "apellidos": "Hernandez",
+      "email": "diego.hernandez@example.com",
+      "genero": "male",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "ptxvdnd3",
+      "nombre": "Francisco",
+      "apellidos": "Perez",
+      "email": "francisco.perez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pzeafcm9",
+      "nombre": "Cristian",
+      "apellidos": "Jimenez",
+      "email": "cristian.jimenez@example.com",
+      "genero": "female",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "p9iai47y",
+      "nombre": "Carla",
+      "apellidos": "Mendoza",
+      "email": "carla.mendoza@example.com",
+      "genero": "male",
+      "grupoId": "gjp48ezu"
+    },
+    {
+      "id": "prnp4qi2",
+      "nombre": "Ricardo",
+      "apellidos": "Martinez",
+      "email": "ricardo.martinez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "p7dgu3dr",
+      "nombre": "Javier",
+      "apellidos": "Sanchez",
+      "email": "javier.sanchez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pim4in46",
+      "nombre": "Hugo",
+      "apellidos": "Lopez",
+      "email": "hugo.lopez@example.com",
+      "genero": "male",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "p0fkgmzj",
+      "nombre": "Cristian",
+      "apellidos": "Gomez",
+      "email": "cristian.gomez@example.com",
+      "genero": "female",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "ptkxa4ba",
+      "nombre": "Gabriela",
+      "apellidos": "Jimenez",
+      "email": "gabriela.jimenez@example.com",
+      "genero": "female",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "p1dht1rz",
+      "nombre": "David",
+      "apellidos": "Torres",
+      "email": "david.torres@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "p4g61ph6",
+      "nombre": "Sara",
+      "apellidos": "Torres",
+      "email": "sara.torres@example.com",
+      "genero": "male",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "pr5vkf09",
+      "nombre": "Cristina",
+      "apellidos": "Ortega",
+      "email": "cristina.ortega@example.com",
+      "genero": "female",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "pp5lpft6",
+      "nombre": "Noelia",
+      "apellidos": "Lopez",
+      "email": "noelia.lopez@example.com",
+      "genero": "female",
+      "grupoId": "gtpurezc"
+    },
+    {
+      "id": "pr6onmpa",
+      "nombre": "Carlos",
+      "apellidos": "Reyes",
+      "email": "carlos.reyes@example.com",
+      "genero": "female",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "pflpuo1c",
+      "nombre": "Antonio",
+      "apellidos": "Ortega",
+      "email": "antonio.ortega@example.com",
+      "genero": "female",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "ppy3m2qw",
+      "nombre": "Gabriela",
+      "apellidos": "Jimenez",
+      "email": "gabriela.jimenez@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "pl6sxdta",
+      "nombre": "Mariana",
+      "apellidos": "Gutierrez",
+      "email": "mariana.gutierrez@example.com",
+      "genero": "male",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "pbryqlso",
+      "nombre": "Esteban",
+      "apellidos": "Lopez",
+      "email": "esteban.lopez@example.com",
+      "genero": "male",
+      "grupoId": "g0cq193c"
+    },
+    {
+      "id": "p3nvwe74",
+      "nombre": "Ricardo",
+      "apellidos": "Vasquez",
+      "email": "ricardo.vasquez@example.com",
+      "genero": "female",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "peernha2",
+      "nombre": "Elena",
+      "apellidos": "Perez",
+      "email": "elena.perez@example.com",
+      "genero": "female",
+      "grupoId": "gjp48ezu"
+    },
+    {
+      "id": "p5nubue8",
+      "nombre": "Antonio",
+      "apellidos": "Alvarez",
+      "email": "antonio.alvarez@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "prhncb0l",
+      "nombre": "Gonzalo",
+      "apellidos": "Fernandez",
+      "email": "gonzalo.fernandez@example.com",
+      "genero": "male",
+      "grupoId": "gjp48ezu"
+    },
+    {
+      "id": "pntgkrj8",
+      "nombre": "Andres",
+      "apellidos": "Pineda",
+      "email": "andres.pineda@example.com",
+      "genero": "female",
+      "grupoId": "gjp48ezu"
+    },
+    {
+      "id": "p5zbz2jh",
+      "nombre": "Noelia",
+      "apellidos": "Castillo",
+      "email": "noelia.castillo@example.com",
+      "genero": "female",
+      "grupoId": "gjp48ezu"
+    },
+    {
+      "id": "po7m3165",
+      "nombre": "Pablo",
+      "apellidos": "Torres",
+      "email": "pablo.torres@example.com",
+      "genero": "female",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "p5id7ag6",
+      "nombre": "Andres",
+      "apellidos": "Perez",
+      "email": "andres.perez@example.com",
+      "genero": "female",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pkyo6gg5",
+      "nombre": "Hugo",
+      "apellidos": "Vasquez",
+      "email": "hugo.vasquez@example.com",
+      "genero": "female",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pbxohrxb",
+      "nombre": "Gonzalo",
+      "apellidos": "Martinez",
+      "email": "gonzalo.martinez@example.com",
+      "genero": "male",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "pztoamwe",
+      "nombre": "Veronica",
+      "apellidos": "Pineda",
+      "email": "veronica.pineda@example.com",
+      "genero": "male",
+      "grupoId": "g12kbkkw"
+    },
+    {
+      "id": "phr19eec",
+      "nombre": "David",
+      "apellidos": "Perez",
+      "email": "david.perez@example.com",
+      "genero": "female",
+      "grupoId": "g28i75m0"
+    },
+    {
+      "id": "51dc",
+      "nombre": "Julia",
+      "apellidos": "Ortega",
+      "email": "julia.ortega@example.com",
+      "edad": "24",
+      "genero": "female",
+      "grupoId": ""
+    }
+  ],
+  "grupos": [
+    {
+      "id": "g28i75m0",
+      "personas": [
+        "px48y56t",
+        "pbw61xao",
+        "pzrgnvmx",
+        "pt4u23vh",
+        "pnpz6wfe",
+        "ptxvdnd3",
+        "prnp4qi2",
+        "p7dgu3dr",
+        "pflpuo1c",
+        "p5id7ag6",
+        "pkyo6gg5",
+        "pbxohrxb",
+        "phr19eec"
+      ]
+    },
+    {
+      "id": "g12kbkkw",
+      "personas": [
+        "pj9j7pqs",
+        "pnlqu9qr",
+        "p6e9iatq",
+        "pb00ewfa",
+        "pmw60kuu",
+        "p6b02haq",
+        "ptkxa4ba",
+        "p1dht1rz",
+        "ppy3m2qw",
+        "p3nvwe74",
+        "p5nubue8",
+        "po7m3165",
+        "pztoamwe"
+      ]
+    },
+    {
+      "id": "gjp48ezu",
+      "personas": [
+        "pwi2qory",
+        "prxhvi9v",
+        "pl95u822",
+        "p9iai47y",
+        "peernha2",
+        "prhncb0l",
+        "pntgkrj8",
+        "p5zbz2jh"
+      ]
+    },
+    {
+      "id": "g0cq193c",
+      "personas": [
+        "pu2l3zst",
+        "p58nalgp",
+        "powf5p27",
+        "p0fkgmzj",
+        "pr6onmpa",
+        "pl6sxdta",
+        "pbryqlso"
+      ]
+    },
+    {
+      "id": "gtpurezc",
+      "personas": [
+        "p86uyezt",
+        "prtg7tph",
+        "pnphjhka",
+        "pz6mol0q",
+        "pzeafcm9",
+        "pim4in46",
+        "p4g61ph6",
+        "pr5vkf09",
+        "pp5lpft6"
+      ]
+    }
+  ]
+}
