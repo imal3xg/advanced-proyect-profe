@@ -41,6 +41,7 @@ export class MyPeopleService{
                     id:d.id, 
                     name:d.nombre, 
                     surname:d.apellidos, 
+                    gender:d.genero,
                     age:(d as any)["age"]??0,
                     picture:(d as any)["picture"]?{
                         large:(d as any)["picture"].large, 

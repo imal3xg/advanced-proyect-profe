@@ -17,8 +17,9 @@ import { GroupsMappingJsonServer } from './core/repositories/impl/groups-mapping
 import { GroupsService } from './core/services/impl/groups.service';
 import { PersonModalComponent } from './components/person-modal/person-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GroupModalComponent } from './components/group-modal/group-modal.component';
 @NgModule({
-  declarations: [AppComponent, PersonModalComponent],
+  declarations: [AppComponent, PersonModalComponent, GroupModalComponent],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 

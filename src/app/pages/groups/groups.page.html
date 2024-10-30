@@ -5,6 +5,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Grupos</ion-title>
+    <ion-buttons slot="end">
+      <ion-text>
+        Total: {{ totalGroups }}
+      </ion-text>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -19,16 +24,31 @@
     </ion-toolbar>
   </ion-header>
   <ion-list>
-    <ion-item *ngFor="let group of groups$ | async; let i = index" (click)="openGroupDetail(group, i)">
+    <ion-item *ngFor="let group of groups$ | async; let i = index" class="group-item">
+      <ion-avatar slot="start">
+        <img #avatar alt="Silhouette de una persona" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
       <ion-label class="ion-text-nowrap">
         {{group.name}}
       </ion-label>
+      <ion-buttons>
+        <ion-button fill="clear" slot="end" class="update-button" (click)="openGroupDetail(group, i)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" slot="end" class="delete-button" (click)="onDeleteGroup(group)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+       </ion-buttons>
     </ion-item>
   </ion-list>
-  <div #animatedAvatarContainer class="animated-avatar-container" [ngStyle]="{'display':isAnimating?'block':'none'}">
-    <img #animatedAvatar [src]="selectedGroup?.picture?.large" alt="Foto de {{ selectedGroup?.name.first }}">
-  </div>
+
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="onAddGroup()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

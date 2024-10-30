@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AnimationController, InfiniteScrollCustomEvent } from '@ionic/angular';
+import { AlertController, AnimationController, InfiniteScrollCustomEvent, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { GroupModalComponent } from 'src/app/components/group-modal/group-modal.component';
 import { Group } from 'src/app/core/models/group.model';
 import { Paginated } from 'src/app/core/models/paginated.model';
 import { GroupsService } from 'src/app/core/services/impl/groups.service';
@@ -15,14 +16,17 @@ export class GroupsPage implements OnInit {
 
   _groups:BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>([]);
   groups$:Observable<Group[]> = this._groups.asObservable();
+  totalGroups: number = 0;  // Nueva propiedad para el contador
+  hasMoreGroups: boolean = true;
 
   constructor(
-    private animationCtrl: AnimationController,
-    private groupsSvc:MyGroupsService
+    private groupsSvc: GroupsService,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController  // Inyectar AlertController
   ) {}
 
   ngOnInit(): void {
-    this.getMorePeople();
+    this.getMoreGroups();
   }
 
 
@@ -35,55 +39,126 @@ export class GroupsPage implements OnInit {
   page:number = 1;
   pageSize:number = 25;
 
-
-  getMorePeople(notify:HTMLIonInfiniteScrollElement | null = null) {
+  refresh() {
+    this.page = 1;
+    this.hasMoreGroups = true;  // Reiniciar el flag al refrescar
     this.groupsSvc.getAll(this.page, this.pageSize).subscribe({
-      next:(response:Paginated<Group>)=>{
-        this._groups.next([...this._groups.value, ...response.data]);
+      next: (response: Paginated<Group>) => {
+        this._groups.next([...response.data]);
+        this.totalGroups = response.data.length;  // Actualizar el contador
         this.page++;
-        notify?.complete();
+
+        // Verificar si no se obtuvieron datos suficientes para completar una página, es decir, si es el final
+        if (response.data.length < this.pageSize) {
+          this.hasMoreGroups = false;  // No quedan más grupos por cargar
+        }
       }
     });
   }
 
-  async openGroupDetail(Group: any, index: number) {
-    this.selectedGroup = Group;
-    const avatarElements = this.avatars.toArray();
-    const clickedAvatar = avatarElements[index].nativeElement;
+  getMoreGroups(notify: HTMLIonInfiniteScrollElement | null = null) {
+    // Verificar si hay más grupos que cargar antes de hacer la solicitud
+    if (!this.hasMoreGroups) {
+      notify?.complete();  // Detener el infinite scroll
+      return;
+    }
+    this.groupsSvc.getAll(this.page, this.pageSize).subscribe({
+      next:(response:Paginated<Group>)=>{
+        this._groups.next([...this._groups.value, ...response.data]);
+        this.totalGroups = this._groups.value.length;  // Actualizar el contador
+        this.page++;
 
-    // Obtener las coordenadas del avatar clicado
-    const avatarRect = clickedAvatar.getBoundingClientRect();
+        // Verificar si hemos llegado al final de los datos (menos grupos de los esperados)
+        if (response.data.length < this.pageSize) {
+          this.hasMoreGroups = false;  // No hay más personas por cargar
+        }
 
-    // Mostrar el contenedor animado
-    this.isAnimating = true;
-    
+        notify?.complete();  // Finalizar la animación del infinite scroll
+      },
+      error: (err) => {
+        console.error('Error obteniendo más grupos:', err);
+        notify?.complete();  // En caso de error, completar también el infinite scroll
+      }
+    });
+  }
 
-    // Configurar la posición inicial de la imagen animada
-    const animatedAvatarElement = this.animatedAvatar.nativeElement as HTMLElement;
-    animatedAvatarElement.style.position = 'absolute';
-    animatedAvatarElement.style.top = `${avatarRect.top}px`;
-    animatedAvatarElement.style.left = `${avatarRect.left}px`;
-    animatedAvatarElement.style.width = `${avatarRect.width}px`;
-    animatedAvatarElement.style.height = `${avatarRect.height}px`;
+  async openGroupDetail(group: any, index: number) {
+    await this.presentModalGroup('edit', group);
+    this.selectedGroup = group;
+  }
 
-    // Crear la animación
-    const animation = this.animationCtrl.create()
-      .addElement(animatedAvatarElement)
-      .duration(500)
-      .easing('ease-out')
-      .fromTo('transform', 'translate(0, 0) scale(1)', `translate(${window.innerWidth / 2 - avatarRect.left - avatarRect.width / 2}px, ${window.innerHeight / 2 - avatarRect.top - avatarRect.height / 2}px) scale(5)`);
+  async onDeleteGroup(group: Group) {
+    // Crear una alerta de confirmación antes de eliminar
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmar eliminación',
+      message: `¿Estás seguro de que quieres eliminar el grupo ${group.name}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Eliminar',
+          role: 'destructive',  // Marca como botón destructivo
+          handler: () => {
+            // Si el usuario confirma, se realiza la eliminación
+            this.groupsSvc.delete(group.id).subscribe({
+              next: () => {
+                const updatedGroup = this._groups.value.filter(g => g.id !== group.id);
+                this._groups.next(updatedGroup);
+                this.totalGroups = updatedGroup.length;  // Actualizar el contador
+              },
+              error: (err) => {
+                console.error('Error eliminando grupo:', err);
+              }
+            });
+          }
+        }
+      ]
+    });
 
-    // Iniciar la animación
-    await animation.play();
-
-    // Opcional: Puedes agregar lógica adicional después de la animación
-    // Por ejemplo, mostrar más información, navegar a otra página, etc.
-
-    // Resetear la animación después de completarla
-    //this.isAnimating = false;
+    // Presentar la alerta
+    await alert.present();
   }
 
   onIonInfinite(ev:InfiniteScrollCustomEvent) {
-    this.getMorePeople(ev.target); 
+    this.getMoreGroups(ev.target); 
+  }
+
+  private async presentModalGroup(mode: 'new' | 'edit', group: Group | undefined = undefined) {
+    const modal = await this.modalCtrl.create({
+      component: GroupModalComponent,
+      componentProps: (mode == 'edit' ? {
+        group: group
+      } : {})
+    });
+    modal.onDidDismiss().then((response: any) => {
+      switch (response.role) {
+        case 'new':
+          this.groupsSvc.add(response.data).subscribe({
+            next: res => {
+              this.refresh();  // Refrescar la lista para incluir el nuevo grupo
+              this.totalGroups++;  // Incrementar el contador después de añadir
+            },
+            error: err => { }
+          });
+          break;
+        case 'edit':
+          this.groupsSvc.update(group!.id, response.data).subscribe({
+            next: res => {
+              this.refresh();  // Refrescar la lista después de editar
+            },
+            error: err => { }
+          });
+          break;
+        default:
+          break;
+      }
+    });
+    await modal.present();
+  }
+
+  async onAddGroup() {
+    await this.presentModalGroup('new');
   }
 }

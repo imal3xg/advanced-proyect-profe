@@ -30,19 +30,14 @@
   </ion-header>
 
   <ion-list>
-    <ion-item *ngFor="let person of people$ | async; let i = index"
-              class="person-item">
-      
+    <ion-item *ngFor="let person of people$ | async; let i = index" class="person-item">
       <ion-avatar slot="start">
         <img *ngIf="person.picture?.thumbnail" #avatar alt="Silhouette of a person's head" [src]="person.picture!.thumbnail" />
         <img *ngIf="!(person.picture?.thumbnail)" #avatar alt="Silhouette de una persona" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
-      
       <ion-label class="ion-text-nowrap">
         {{person.name}} {{person.surname}} ({{person.age}} años)
       </ion-label>
-
-      <!-- Botón con el icono de papelera -->
        <ion-buttons>
         <ion-button fill="clear" slot="end" class="update-button" (click)="openPersonDetail(person, i)">
           <ion-icon name="create-outline"></ion-icon>

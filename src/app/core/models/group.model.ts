@@ -1,6 +1,8 @@
-// src/app/core/person.model.ts
+// src/app/core/group.model.ts
 import { Model } from "./base.model";
 
-export interface Group extends Model{
-    name:string
+// Define the Group interface, matching the JSON structure
+export interface Group extends Model {
+    name: string;             // Name of the group
+    personas?: string[];        // Array of person IDs, optional
 }

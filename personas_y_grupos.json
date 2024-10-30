@@ -390,6 +390,7 @@
   "grupos": [
     {
       "id": "g28i75m0",
+      "nombre": "DAM 1",
       "personas": [
         "px48y56t",
         "pbw61xao",
@@ -408,6 +409,7 @@
     },
     {
       "id": "g12kbkkw",
+      "nombre": "DAM 2",
       "personas": [
         "pj9j7pqs",
         "pnlqu9qr",
@@ -426,6 +428,7 @@
     },
     {
       "id": "gjp48ezu",
+      "nombre": "DAW 1",
       "personas": [
         "pwi2qory",
         "prxhvi9v",
@@ -439,6 +442,7 @@
     },
     {
       "id": "g0cq193c",
+      "nombre": "DAW 2",
       "personas": [
         "pu2l3zst",
         "p58nalgp",
@@ -451,6 +455,7 @@
     },
     {
       "id": "gtpurezc",
+      "nombre": "Ciber 1",
       "personas": [
         "p86uyezt",
         "prtg7tph",
@@ -462,6 +467,14 @@
         "pr5vkf09",
         "pp5lpft6"
       ]
+    },
+    {
+      "id": "c049",
+      "nombre": "Ciber 2"
+    },
+    {
+      "id": "e1b6",
+      "nombre": "Juegos 1"
     }
   ]
 }

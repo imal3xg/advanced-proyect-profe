@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header-content">
+      <ion-icon slot="start" name="people-circle-outline"></ion-icon>
+      <ion-title>
+        {{ mode === 'edit' ? 'Editar grupo' : 'Nuevo grupo' }}
+      </ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-input label="Nombre" label-placement="stacked" type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+      <p *ngIf="name?.errors?.['required']">El nombre es obligatorio.</p>
+      <p *ngIf="name?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</p>
+    </ion-text>
+
+    <!-- Botón de Envío -->
+    <ion-button [disabled]="formGroup.invalid" expand="full" type="submit">Registrar</ion-button>
+  </form>
+</ion-content>
