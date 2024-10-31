@@ -18,8 +18,9 @@ import { GroupsService } from './core/services/impl/groups.service';
 import { PersonModalComponent } from './components/person-modal/person-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GroupModalComponent } from './components/group-modal/group-modal.component';
+import { GroupSelectableComponent } from './components/group-selectable/group-selectable.component';
 @NgModule({
-  declarations: [AppComponent, PersonModalComponent, GroupModalComponent],
+  declarations: [AppComponent, PersonModalComponent, GroupModalComponent, GroupSelectableComponent],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AlertController, AnimationController, InfiniteScrollCustomEvent, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';  // Importar map para el filtro
 import { PersonModalComponent } from 'src/app/components/person-modal/person-modal.component';
 import { Paginated } from 'src/app/core/models/paginated.model';
 import { Person } from 'src/app/core/models/person.model';
@@ -15,15 +16,19 @@ export class PeoplePage implements OnInit {
 
   _people: BehaviorSubject<Person[]> = new BehaviorSubject<Person[]>([]);
   people$: Observable<Person[]> = this._people.asObservable();
-  totalPeople: number = 0;  // Nueva propiedad para el contador
+  filteredPeople$: Observable<Person[]>;  // Observable para las personas filtradas
+  totalPeople: number = 0;
   hasMorePeople: boolean = true;
 
   constructor(
     private animationCtrl: AnimationController,
     private peopleSvc: PeopleService,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController  // Inyectar AlertController
-  ) {}
+    private alertCtrl: AlertController
+  ) {
+    // Inicializar el observable filtrado a todas las personas
+    this.filteredPeople$ = this.people$;
+  }
 
   ngOnInit(): void {
     this.getMorePeople();
@@ -40,46 +45,53 @@ export class PeoplePage implements OnInit {
 
   refresh() {
     this.page = 1;
-    this.hasMorePeople = true;  // Reiniciar el flag al refrescar
+    this.hasMorePeople = true;
     this.peopleSvc.getAll(this.page, this.pageSize).subscribe({
       next: (response: Paginated<Person>) => {
         this._people.next([...response.data]);
-        this.totalPeople = response.data.length;  // Actualizar el contador
+        this.totalPeople = response.data.length;
         this.page++;
-
-        // Verificar si no se obtuvieron datos suficientes para completar una página, es decir, si es el final
         if (response.data.length < this.pageSize) {
-          this.hasMorePeople = false;  // No quedan más personas por cargar
+          this.hasMorePeople = false;
         }
       }
     });
   }
 
   getMorePeople(notify: HTMLIonInfiniteScrollElement | null = null) {
-    // Verificar si hay más personas que cargar antes de hacer la solicitud
     if (!this.hasMorePeople) {
-      notify?.complete();  // Detener el infinite scroll
+      notify?.complete();
       return;
     }
 
     this.peopleSvc.getAll(this.page, this.pageSize).subscribe({
       next: (response: Paginated<Person>) => {
         this._people.next([...this._people.value, ...response.data]);
-        this.totalPeople = this._people.value.length;  // Actualizar el contador
+        this.totalPeople = this._people.value.length;
         this.page++;
-
-        // Verificar si hemos llegado al final de los datos (menos personas de las esperadas)
         if (response.data.length < this.pageSize) {
-          this.hasMorePeople = false;  // No hay más personas por cargar
+          this.hasMorePeople = false;
         }
-
-        notify?.complete();  // Finalizar la animación del infinite scroll
+        notify?.complete();
       },
       error: (err) => {
         console.error('Error obteniendo más personas:', err);
-        notify?.complete();  // En caso de error, completar también el infinite scroll
+        notify?.complete();
       }
     });
+  }
+
+  onSearch(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredPeople$ = this.people$.pipe(
+      map((people) =>
+        people.filter(
+          (person) =>
+            person.name.toLowerCase().includes(searchTerm) ||
+            person.surname.toLowerCase().includes(searchTerm)
+        )
+      )
+    );
   }
 
   async openPersonDetail(person: any, index: number) {
@@ -88,7 +100,6 @@ export class PeoplePage implements OnInit {
   }
 
   async onDeletePerson(person: Person) {
-    // Crear una alerta de confirmación antes de eliminar
     const alert = await this.alertCtrl.create({
       header: 'Confirmar eliminación',
       message: `¿Estás seguro de que quieres eliminar a ${person.name} ${person.surname}?`,
@@ -99,14 +110,13 @@ export class PeoplePage implements OnInit {
         },
         {
           text: 'Eliminar',
-          role: 'destructive',  // Marca como botón destructivo
+          role: 'destructive',
           handler: () => {
-            // Si el usuario confirma, se realiza la eliminación
             this.peopleSvc.delete(person.id).subscribe({
               next: () => {
-                const updatedPeople = this._people.value.filter(p => p.id !== person.id);
+                const updatedPeople = this._people.value.filter((p) => p.id !== person.id);
                 this._people.next(updatedPeople);
-                this.totalPeople = updatedPeople.length;  // Actualizar el contador
+                this.totalPeople = updatedPeople.length;
               },
               error: (err) => {
                 console.error('Error eliminando persona:', err);
@@ -116,8 +126,6 @@ export class PeoplePage implements OnInit {
         }
       ]
     });
-
-    // Presentar la alerta
     await alert.present();
   }
 
@@ -128,31 +136,22 @@ export class PeoplePage implements OnInit {
   private async presentModalPerson(mode: 'new' | 'edit', person: Person | undefined = undefined) {
     const modal = await this.modalCtrl.create({
       component: PersonModalComponent,
-      componentProps: (mode == 'edit' ? {
-        person: person
-      } : {})
+      componentProps: mode === 'edit' ? { person: person } : {}
     });
     modal.onDidDismiss().then((response: any) => {
-      switch (response.role) {
-        case 'new':
-          this.peopleSvc.add(response.data).subscribe({
-            next: res => {
-              this.refresh();  // Refrescar la lista para incluir la nueva persona
-              this.totalPeople++;  // Incrementar el contador después de añadir
-            },
-            error: err => { }
-          });
-          break;
-        case 'edit':
-          this.peopleSvc.update(person!.id, response.data).subscribe({
-            next: res => {
-              this.refresh();  // Refrescar la lista después de editar
-            },
-            error: err => { }
-          });
-          break;
-        default:
-          break;
+      if (response.role === 'new') {
+        this.peopleSvc.add(response.data).subscribe({
+          next: () => {
+            this.refresh();
+            this.totalPeople++;
+          },
+          error: (err) => {}
+        });
+      } else if (response.role === 'edit') {
+        this.peopleSvc.update(person!.id, response.data).subscribe({
+          next: () => this.refresh(),
+          error: (err) => {}
+        });
       }
     });
     await modal.present();
