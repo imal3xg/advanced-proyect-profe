@@ -17,8 +17,10 @@ import { GroupsMappingJsonServer } from './core/repositories/impl/groups-mapping
 import { GroupsService } from './core/services/impl/groups.service';
 import { PersonModalComponent } from './components/person-modal/person-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { GroupModalComponent } from './components/group-modal/group-modal.component';
 import { GroupSelectableComponent } from './components/group-selectable/group-selectable.component';
+import { PeopleMappingStrapiService } from './core/repositories/impl/people-mapping-strapi.service';
+import { GroupsMappingStrapiService } from './core/repositories/impl/groups-mapping-strapi.service';
+import { GroupModalComponent } from './components/group-modal/group-modal.component';
 @NgModule({
   declarations: [AppComponent, PersonModalComponent, GroupModalComponent, GroupSelectableComponent],
   imports: [
@@ -30,18 +32,18 @@ import { GroupSelectableComponent } from './components/group-selectable/group-se
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideHttpClient(),
     
-    { provide: PEOPLE_RESOURCE_NAME_TOKEN, useValue: 'personas' },
-    { provide: GROUPS_RESOURCE_NAME_TOKEN, useValue: 'grupos' },
-    { provide: PEOPLE_API_URL_TOKEN, useValue: 'http://localhost:3000' },
-    { provide: GROUPS_API_URL_TOKEN, useValue: 'http://localhost:3000' },
+    { provide: PEOPLE_RESOURCE_NAME_TOKEN, useValue: 'people' },
+    { provide: GROUPS_RESOURCE_NAME_TOKEN, useValue: 'groups' },
+    { provide: PEOPLE_API_URL_TOKEN, useValue: 'http://localhost:1337/api' },
+    { provide: GROUPS_API_URL_TOKEN, useValue: 'http://localhost:1337/api' },
     // Registrar los repositorios
     { 
       provide: PEOPLE_REPOSITORY_MAPPING_TOKEN, 
-      useClass: PeopleMappingJsonServer
+      useClass: PeopleMappingStrapiService
     },
     { 
       provide: GROUPS_REPOSITORY_MAPPING_TOKEN, 
-      useClass: GroupsMappingJsonServer
+      useClass: GroupsMappingStrapiService
     },
     PeopleRepositoryFactory,
     GroupsRepositoryFactory,

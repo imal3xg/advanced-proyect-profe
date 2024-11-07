@@ -61,6 +61,6 @@
     </ion-item>
 
     <!-- Botón de Envío -->
-    <ion-button [disabled]="formGroup.invalid" expand="full" type="submit" [disabled]="formGroup.invalid">Registrar</ion-button>
+    <ion-button [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit" >Registrar</ion-button>
   </form>
 </ion-content>

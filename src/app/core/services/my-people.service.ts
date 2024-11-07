@@ -27,7 +27,7 @@ export interface PaginatedRaw<T> {
 })
 export class MyPeopleService{
 
-    private apiUrl:string = "http://localhost:3000/personas"
+    private apiUrl:string = "http://localhost:3000/people"
     constructor(
         private http:HttpClient
     ){
@@ -41,8 +41,8 @@ export class MyPeopleService{
                     id:d.id, 
                     name:d.nombre, 
                     surname:d.apellidos, 
-                    gender:d.genero,
                     age:(d as any)["age"]??0,
+                    gender:d.genero,
                     picture:(d as any)["picture"]?{
                         large:(d as any)["picture"].large, 
                         thumbnail:(d as any)["picture"].thumbnail
