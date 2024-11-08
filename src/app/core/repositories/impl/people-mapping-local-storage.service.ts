@@ -11,6 +11,8 @@ interface PersonRaw{
         last:string;
     },
     age:number,
+    birthdate:string,
+    email:string,
     genero:string,
     picture:{
         large:string
@@ -39,6 +41,8 @@ interface PersonRaw{
             name:data.name.first, 
             surname:data.name.last, 
             age:data.age,
+            birthdate:data.birthdate,
+            email:data.email,
             gender:data.genero,
             picture:{
                 large:data.picture.large, 

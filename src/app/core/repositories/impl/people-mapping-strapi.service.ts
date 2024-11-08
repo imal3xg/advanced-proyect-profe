@@ -24,7 +24,8 @@ export interface PersonAttributes {
     name: string
     surname: string
     gender: string
-    birthdate?: string
+    birthdate: string
+    email: string
     createdAt?: string
     updatedAt?: string
     publishedAt?: string
@@ -58,6 +59,8 @@ export interface Meta {}
             data:{
                 name:data.name,
                 surname:data.surname,
+                email:data.email,
+                birthdate:data.birthdate,
                 gender: this.toGenderMapping[data.gender],
                 group:Number(data.groupId)??null
 
@@ -69,6 +72,8 @@ export interface Meta {}
             data:{
                 name:"",
                 surname:"",
+                email:"",
+                birthdate:"",
                 gender:"male",
                 group:null
             }
@@ -79,6 +84,10 @@ export interface Meta {}
                 break;
                 case 'surname': toReturn.data['surname']=data[key];
                 break;
+                case 'email': toReturn.data['email']=data[key];
+                break;
+                case 'birthdate': toReturn.data['birthdate']=data[key];
+                break;
                 case 'gender': toReturn.data['gender']=data[key]=='Masculino'?'male':data[key]=='Femenino'?'female':'other';
                 break;
                 case 'groupId': toReturn.data['group']=Number(data[key])??null;
@@ -88,16 +97,23 @@ export interface Meta {}
         });
         return toReturn;
     }
-    getPaginated(page:number, pageSize: number, pages:number, data:Data<PersonRaw>[]): Paginated<Person> {
-        return {page:page, pageSize:pageSize, pages:pages, data:data.map<Person>((d:Data<PersonRaw>)=>{
-            return this.getOne(d);
-        })};
+    
+    getPaginated(page: number, pageSize: number, pages: number, data: Data<PersonRaw>[]): Paginated<Person> {
+        return {
+            page: page,
+            pageSize: pageSize,
+            pages: pages,
+            data: data.map((d: Data<PersonRaw>) => this.getOne(d))
+        };
     }
+    
     getOne(data: Data<Person>): Person {
       return {
         id: data.id.toString(),
         name: data.attributes.name,
         surname: data.attributes.surname,
+        email: data.attributes.email,
+        birthdate: data.attributes.birthdate,
         groupId: typeof data.attributes.group === 'object' && data.attributes.group?.data
             ? data.attributes.group.data.id.toString()
             : undefined, // Verificación adicional para `group` y `data`

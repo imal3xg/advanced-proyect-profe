@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>frontpage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-centered">
+  <!-- Texto centralizado en la pantalla -->
+  <div class="centered-text">
+    <h1>PORTADA</h1>
+  </div>
+
+  <!-- Botones de navegación -->
+  <div class="buttons-container">
+    <ion-button expand="block" (click)="navigateToLogin()">Iniciar sesión</ion-button>
+    <ion-button expand="block" (click)="navigateToRegister()">Registrarse</ion-button>
+  </div>

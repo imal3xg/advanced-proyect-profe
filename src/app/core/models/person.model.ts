@@ -5,7 +5,8 @@ export interface Person extends Model{
     name:string,
     surname:string,
     age?:number,
-    email?:string, //TODO: Quitar interrogación más adelante
+    birthdate:string,
+    email:string, //TODO: Quitar interrogación más adelante
     gender:string,
     picture?:{
         large:string,

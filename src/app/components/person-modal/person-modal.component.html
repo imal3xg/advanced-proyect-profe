@@ -15,6 +15,7 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <!-- Nombre -->
     <ion-item>
       <ion-input label="Nombre" label-placement="stacked"  type="text" formControlName="name"></ion-input>
     </ion-item>
@@ -40,12 +41,28 @@
       <p *ngIf="email?.errors?.['required']">El email es obligatorio.</p>
       <p *ngIf="email?.errors?.['email']">Por favor, introduce un email válido.</p>
     </ion-text>
+
+    <!-- Fecha de nacimiento -->
     <ion-item>
-      <ion-input label="Edad" label-placement="stacked"  type="text" formControlName="age"></ion-input>
+      <ion-label position="stacked">Fecha de nacimiento</ion-label>
+      <ion-input 
+        type="date" 
+        formControlName="birthdate" 
+        (ionChange)="calculateAge()">
+      </ion-input>
     </ion-item>
-    <ion-text color="danger" *ngIf="age?.invalid">
-      <p *ngIf="age?.errors?.['pattern']">La edad debe ser un número positivo</p>
+    
+    <!-- Mostrar error si la fecha es inválida -->
+    <ion-text color="danger" *ngIf="birthdate?.invalid && birthdate?.touched">
+      <p *ngIf="birthdate?.errors?.['required']">La fecha de nacimiento es obligatoria.</p>
+      <p *ngIf="birthdate?.errors?.['pattern']">La fecha debe ser válida.</p>
     </ion-text>
+    
+    <!-- Mostrar la edad calculada si es válida -->
+    <ion-text *ngIf="calculatedAge !== null">
+      <p>Edad: {{ calculatedAge }}</p>
+    </ion-text>
+
     <!-- Género -->
     <ion-item>
       <ion-select label="Género" label-placement="stacked" formControlName="gender" placeholder="Selecciona un género">
@@ -56,6 +73,7 @@
     <ion-text color="danger" *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
       <p *ngIf="gender?.errors?.['required']">El género es obligatorio.</p>
     </ion-text>
+    
     <ion-item>
       <ion-label position="stacked">Grupo</ion-label>
       <app-group-selectable formControlName="groupId"></app-group-selectable>

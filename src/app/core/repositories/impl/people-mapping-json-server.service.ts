@@ -71,6 +71,7 @@ export interface PersonRaw {
             name:data.nombre, 
             surname:data.apellidos, 
             age:(data as any)["edad"]??0,
+            birthdate:(data as any)["fecha de nacimiento"]??'',
             email:(data as any)["email"]??'',
             groupId:(data as any)["groupId"]??'',
             gender:this.fromGenderMapping[data.genero],

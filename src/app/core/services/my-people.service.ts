@@ -19,6 +19,7 @@ export interface PaginatedRaw<T> {
     nombre: string
     apellidos: string
     email: string
+    birthdate: string,
     genero: string
     grupoId: string
 }
@@ -41,6 +42,8 @@ export class MyPeopleService{
                     id:d.id, 
                     name:d.nombre, 
                     surname:d.apellidos, 
+                    email:d.email,
+                    birthdate:d.birthdate,
                     age:(d as any)["age"]??0,
                     gender:d.genero,
                     picture:(d as any)["picture"]?{
