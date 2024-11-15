@@ -39,10 +39,8 @@ export interface Meta {}
         };
     }
     setUpdate(data: Group):GroupData {
-        let toReturn:GroupData = {
-            data:{
-                name:""
-            }
+        let toReturn:any = {
+            data:{}
         };  
         Object.keys(data).forEach(key=>{
             switch(key){
