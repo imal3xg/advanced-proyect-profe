@@ -68,15 +68,8 @@ export interface Meta {}
         };
     }
     setUpdate(data: Person):PersonData {
-        let toReturn:PersonData = {
-            data:{
-                name:"",
-                surname:"",
-                email:"",
-                birthdate:"",
-                gender:"male",
-                group:null
-            }
+        let toReturn:any = {
+            data: {}
         };  
         Object.keys(data).forEach(key=>{
             switch(key){
@@ -95,6 +88,7 @@ export interface Meta {}
                 default:
             }
         });
+        console.log(toReturn)
         return toReturn;
     }
     
@@ -108,6 +102,7 @@ export interface Meta {}
     }
     
     getOne(data: Data<Person>): Person {
+        console.log(data)
       return {
         id: data.id.toString(),
         name: data.attributes.name,

@@ -1,7 +1,7 @@
 // src/app/repositories/impl/base-repository-http.service.ts
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { IBaseRepository, SearchParams } from '../intefaces/base-repository.interface';
 import { API_URL_TOKEN, REPOSITORY_MAPPING_TOKEN, RESOURCE_NAME_TOKEN } from '../repository.tokens';
 import { Model } from '../../models/base.model';
@@ -77,12 +77,18 @@ export class StrapiRepositoryService<T extends Model> extends BaseRepositoryHttp
   }
 
   override update(id: string, entity: T): Observable<T> {
-    return this.http.patch<T>(
-      `${this.apiUrl}/${this.resource}/${id}`, this.mapping.setUpdate(entity)).pipe(map(res=>{
-        return this.mapping.getUpdated(res);
-      }));
+    return this.http.put<T>(
+      `${this.apiUrl}/${this.resource}/${id}`, this.mapping.setUpdate(entity)).pipe(map(res =>{
+        console.log(res)
+      return this.mapping.getUpdated(res)}),
+      catchError(err => {
+        console.error('Error en la actualización:', err);
+        return throwError(err); // Manejo de errores
+      })
+  );
   }
-
+  
+  
   override delete(id: string): Observable<T> {
     return this.http.delete<T>(`${this.apiUrl}/${this.resource}/${id}`).pipe(map(res=>this.mapping.getDeleted(res)));
   }
