@@ -1,17 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>frontpage</ion-title>
+    <ion-title class="header-title">Bienvenido</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content-centered">
-  <!-- Texto centralizado en la pantalla -->
-  <div class="centered-text">
-    <h1>PORTADA</h1>
+  <!-- Sección principal con imagen y texto -->
+  <div class="hero-section">
+    <img src="../../../assets/img/people.jpg" alt="Imagen de portada" class="hero-image" />
+    <h1 class="hero-title">PORTADA</h1>
+    <p class="hero-description">
+      Descubre lo mejor de nuestra plataforma. Inicia sesión o regístrate para empezar.
+    </p>
   </div>
 
   <!-- Botones de navegación -->
   <div class="buttons-container">
-    <ion-button expand="block" (click)="navigateToLogin()">Iniciar sesión</ion-button>
-    <ion-button expand="block" (click)="navigateToRegister()">Registrarse</ion-button>
+    <ion-button shape="round" color="primary" (click)="navigateToLogin()">Iniciar sesión</ion-button>
+    <ion-button shape="round" color="secondary" (click)="navigateToRegister()">Registrarse</ion-button>
   </div>
+</ion-content>
