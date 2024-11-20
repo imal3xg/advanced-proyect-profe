@@ -1,16 +1,39 @@
-.popover-content {
-    max-height: 300px; /* Define aquí la altura máxima */
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
-  }
+/* Popover */
+.selectable-popover {
+  --min-width: 300px;
+  --max-width: 400px; /* Ajusta el ancho máximo deseado */
+  --width: auto;
+  --background: var(--ion-color-light);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-  .fixed-search {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: white; /* Fondo para que no se superponga con el contenido */
-  }
-  
-  .scrollable-content {
-    max-height: 300px; /* Define la altura máxima deseada */
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
-  }
+/* Centrar el popover en la pantalla */
+ion-popover::part(content) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ajustar contenido interno */
+.popover-content {
+  padding: 16px;
+  max-height: 90vh; /* Para evitar que ocupe toda la pantalla */
+  overflow-y: auto;
+}
+
+/* Barra de búsqueda fija */
+.fixed-search {
+  position: relative;
+  top: 0;
+  z-index: 10;
+  background: white;
+  padding: 8px;
+  border-bottom: 1px solid var(--ion-color-light);
+}
+
+/* Lista de elementos */
+.scrollable-content {
+  max-height: 300px; /* Ajustar la altura */
+  overflow-y: auto;
+}

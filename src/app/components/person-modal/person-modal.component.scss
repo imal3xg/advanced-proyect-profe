@@ -1,11 +1,106 @@
-/* mi-modal.component.scss */
-.header-content {
-    display: flex;
-    align-items: center;
-    padding-left:1em;
+/* General styles */
+:root {
+  --ion-color-primary: #4caf50; /* Cambiar color principal */
+  --ion-color-primary-shade: #43a047;
+  --ion-color-primary-tint: #66bb6a;
+  --ion-padding-standard: 16px;
+}
+
+ion-header {
+  background-color: var(--ion-color-primary);
+  color: white;
+}
+
+ion-toolbar ion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+ion-toolbar ion-icon {
+  margin-right: 8px;
+}
+
+/* Form cards */
+ion-card {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  color: var(--ion-color-primary);
+}
+
+ion-card-content {
+  padding: var(--ion-padding-standard);
+}
+
+/* Input styles */
+ion-input, ion-select, ion-datetime, app-group-selectable {
+  margin-bottom: 0.5rem;
+}
+
+ion-item {
+  --background: white;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+}
+
+ion-input, ion-select {
+  --padding-start: 0;
+}
+
+ion-text {
+  font-size: 0.9rem;
+  margin-top: -8px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+ion-text[color="danger"] p {
+  color: #e53935;
+  font-size: 0.85rem;
+}
+
+/* Button styles */
+ion-button {
+  --border-radius: 8px;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+ion-button:disabled {
+  opacity: 0.6;
+}
+
+/* Footer */
+ion-footer {
+  background-color: white;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-toolbar {
+  padding: var(--ion-padding-standard);
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  ion-card {
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  
-  .modal-title {
-    margin-left: 8px; /* Ajusta el espacio según tus necesidades */
-    font-size: 1.2em;  /* Ajusta el tamaño del texto si es necesario */
+
+  ion-button {
+    max-width: 400px;
+    margin: 0 auto;
   }
+}

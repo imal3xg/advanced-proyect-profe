@@ -21,7 +21,7 @@ export class PersonModalComponent implements OnInit {
     this.formGroup.controls['birthdate'].setValue(_person.birthdate); // Set birthdate
     this.formGroup.controls['gender'].setValue(_person.gender);
     this.formGroup.controls['email'].setValue(_person.email);
-    this.formGroup.controls['groupId']?.setValue(_person.groupId);
+    this.formGroup.controls['groupId'].setValue(_person.groupId);
     this.calculateAge(); // Recalculate age when editing a person
   }
 
@@ -32,6 +32,7 @@ export class PersonModalComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
       birthdate: ['', [Validators.required]], // New birthdate field
+      groupId:[null, [Validators.required]]
     });
   }
 
@@ -55,10 +56,6 @@ export class PersonModalComponent implements OnInit {
 
   get gender() {
     return this.formGroup.controls['gender'];
-  }
-
-  get groupId() {
-    return this.formGroup.controls['groupId'];
   }
 
   // Function to calculate age based on birthdate

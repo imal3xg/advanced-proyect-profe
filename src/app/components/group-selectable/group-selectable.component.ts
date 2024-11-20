@@ -31,7 +31,6 @@ export class GroupSelectableComponent  implements OnInit, ControlValueAccessor, 
   page:number = 1;
   pageSize:number = 25;
   pages:number = 0;
-  
   constructor(
     public groupsSvc:GroupsService
   ) { 
@@ -55,7 +54,6 @@ export class GroupSelectableComponent  implements OnInit, ControlValueAccessor, 
       error:err=>{}
     }) 
   }
-
 
   loadMoreGroups(notify:HTMLIonInfiniteScrollElement | null = null) {
     if(this.page<=this.pages){
