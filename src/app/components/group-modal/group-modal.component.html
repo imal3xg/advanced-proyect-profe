@@ -17,6 +17,20 @@
       <p *ngIf="name?.errors?.['required']">El nombre es obligatorio.</p>
       <p *ngIf="name?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</p>
     </ion-text>
+
+    <ion-item>
+      <ion-select
+        label="País"
+        label-placement="stacked"
+        formControlName="country"
+        placeholder="Selecciona un país">
+        <ion-select-option *ngFor="let cnt of countries" [value]="cnt">{{ cnt }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-text color="danger" *ngIf="country?.invalid && (country?.dirty || country?.touched)">
+      <p *ngIf="country?.errors?.['required']">El país es obligatorio.</p>
+    </ion-text>
+
     <!-- Botón de Envío -->
     <ion-button [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit" >Registrar</ion-button>
   </form>

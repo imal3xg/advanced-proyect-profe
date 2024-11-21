@@ -32,7 +32,7 @@ export class PersonModalComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
       birthdate: ['', [Validators.required]], // New birthdate field
-      groupId:[null, [Validators.required]]
+      groupId:[null]
     });
   }
 

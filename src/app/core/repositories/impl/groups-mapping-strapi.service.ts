@@ -18,6 +18,7 @@ export interface GroupData {
 
 export interface GroupAttributes {
     name: string
+    country?: string
     createdAt?: string
     updatedAt?: string
     publishedAt?: string
@@ -34,19 +35,20 @@ export interface Meta {}
     setAdd(data: Group):GroupData {
         return {
             data:{
-                name:data.name
+                name:data.name,
+                country:data.country
             }
         };
     }
     setUpdate(data: Group):GroupData {
-        let toReturn:GroupData = {
-            data:{
-                name:""
-            }
-        };  
+        let toReturn:any = {
+            data: {}
+        };
         Object.keys(data).forEach(key=>{
             switch(key){
                 case 'name': toReturn.data['name']=data[key];
+                break;
+                case 'country': toReturn.data['country']=data[key];
                 break;
                 default:
             }
@@ -66,7 +68,8 @@ export interface Meta {}
 
         return {
             id: id.toString(),
-            name: attributes.name
+            name: attributes.name,
+            country: attributes.country
         };
     }
     getAdded(data: GroupRaw):Group {

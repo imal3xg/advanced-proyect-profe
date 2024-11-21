@@ -25,17 +25,10 @@
             <ion-input
               #search
               placeholder="Buscar"
-              type="text"
-              (ionInput)="onFilter($event)"
-              debounce="200">
+              (ionInput)="onSearch($event)"
+              clear-input
+              style="max-width: 150px; border-radius: 4px; padding: 0 8px;">
             </ion-input>
-            <ion-button
-              color="medium"
-              slot="end"
-              fill="clear"
-              (click)="clearSearch(search)">
-              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-            </ion-button>
           </ion-item>
         </div>
 
@@ -48,11 +41,12 @@
 
           <!-- Grupos dinámicos -->
           <ion-item
-            *ngFor="let group of groups$ | async"
+            *ngFor="let group of filteredGroups$ | async"
             button
             (click)="onGroupClicked(popover, group)">
             <ion-text>{{ group.name }}</ion-text>
           </ion-item>
+
 
           <!-- Scroll infinito -->
           <ion-infinite-scroll (ionInfinite)="onMoreGroups($event)">

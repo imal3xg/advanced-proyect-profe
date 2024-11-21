@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InfiniteScrollCustomEvent, IonInput, IonPopover } from '@ionic/angular';
-import { BehaviorSubject, Subscription, last, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, last, lastValueFrom, map } from 'rxjs';
 import { Group } from 'src/app/core/models/group.model';
 import { Paginated } from 'src/app/core/models/paginated.model';
 import { GroupsService } from 'src/app/core/services/impl/groups.service';
@@ -23,6 +23,7 @@ export class GroupSelectableComponent  implements OnInit, ControlValueAccessor, 
   disabled:boolean = true;
   private _groups:BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>([]);
   public groups$ = this._groups.asObservable();
+  public filteredGroups$: Observable<Group[]>;  // Observable para las personas filtradas
 
   propagateChange = (obj: any) => {}
 
@@ -34,6 +35,7 @@ export class GroupSelectableComponent  implements OnInit, ControlValueAccessor, 
   constructor(
     public groupsSvc:GroupsService
   ) { 
+    this.filteredGroups$ = this.groups$;
   }
   ngOnDestroy(): void {
     this.popover?.dismiss();
@@ -74,15 +76,29 @@ export class GroupSelectableComponent  implements OnInit, ControlValueAccessor, 
     this.loadMoreGroups(ev.target);
   }
 
-  private async selectGroup(id:string|undefined, propagate:boolean=false){
-    if(id){
-      this.groupSelected  = await lastValueFrom(this.groupsSvc.getById(id));
-    }
-    else
-      this.groupSelected = null;
-    if(propagate && this.groupSelected)
-      this.propagateChange(this.groupSelected.id);
+  // Función para filtrar personas por nombre o apellido
+  onSearch(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredGroups$ = this.groups$.pipe(
+      map((group) =>
+        group.filter(
+          (group) =>
+            group.name.toLowerCase().includes(searchTerm)
+        )
+      )
+    );
   }
+
+  private async selectGroup(id: string | undefined, propagate: boolean = false) {
+    if (id) {
+      this.groupSelected = await lastValueFrom(this.groupsSvc.getById(id));
+    } else {
+      this.groupSelected = null; // Esto maneja el caso "ninguno"
+    }
+    if (propagate) {
+      this.propagateChange(this.groupSelected ? this.groupSelected.id : null);
+    }
+  }  
   
   writeValue(obj: any): void {
     this.selectGroup(obj);
@@ -121,9 +137,8 @@ export class GroupSelectableComponent  implements OnInit, ControlValueAccessor, 
     this.filter("");
   }
 
-  deselect(popover:IonPopover|null=null){
-    this.selectGroup(undefined, true);
-    if(popover)
-      popover.dismiss();
-  }
+  deselect(popover: IonPopover | null = null) {
+    this.selectGroup(undefined, true); // Aquí se maneja como "ninguno"
+    if (popover) popover.dismiss();
+  }  
 }

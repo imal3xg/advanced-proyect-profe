@@ -72,26 +72,43 @@
       </ion-card-header>
       <ion-card-content>
         <!-- Fecha de Nacimiento -->
-        <ion-item>
-          <ion-label position="stacked">Fecha de Nacimiento</ion-label>
-          <ion-datetime
-            presentation="date"> <!-- Configuración para mostrar solo la selección de fecha -->
-            display-format="DD/MM/YYYY" <!-- Formato de visualización -->
-            placeholder="Selecciona una fecha"
-            formControlName="birthdate"
+        <ion-item class="fechanac">
+          <ion-label position="stacked">Fecha de nacimiento</ion-label>
+          <ion-input
+            type="date" 
+            formControlName="birthdate" 
             (ionChange)="calculateAge()">
-          </ion-datetime>
+          </ion-input>
+          <!-- Mostrar la edad -->
+          <ion-text *ngIf="calculatedAge !== null">
+            <p>Edad: {{ calculatedAge }} años</p>
+          </ion-text>
         </ion-item>
         <ion-text color="danger" *ngIf="birthdate?.invalid && birthdate?.touched">
-          <p *ngIf="birthdate?.errors?.['required']">La fecha es obligatoria.</p>
+          <p *ngIf="birthdate?.errors?.['required']">La fecha de nacimiento es obligatoria.</p>
           <p *ngIf="birthdate?.errors?.['pattern']">Introduce una fecha válida.</p>
         </ion-text>
         
-        <!-- Mostrar la edad -->
-        <ion-text *ngIf="calculatedAge !== null">
-          <p>Edad: {{ calculatedAge }} años</p>
-        </ion-text>
         
+        <!--
+    <ion-item>
+      <ion-label position="stacked">Fecha de nacimiento</ion-label>
+      <ion-input 
+        type="date" 
+        formControlName="birthdate" 
+        (ionChange)="calculateAge()">
+      </ion-input>
+    </ion-item>
+    
+    <ion-text color="danger" *ngIf="birthdate?.invalid && birthdate?.touched">
+      <p *ngIf="birthdate?.errors?.['required']">La fecha de nacimiento es obligatoria.</p>
+      <p *ngIf="birthdate?.errors?.['pattern']">La fecha debe ser válida.</p>
+    </ion-text>
+    
+    <ion-text *ngIf="calculatedAge !== null">
+      <p>Edad: {{ calculatedAge }} años</p>
+    </ion-text>
+        -->
 
         <!-- Género -->
         <ion-item>

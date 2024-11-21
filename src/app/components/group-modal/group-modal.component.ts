@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Group } from 'src/app/core/models/group.model';
+import { Countries } from 'src/app/core/models/countries.enum';
 
 @Component({
   selector: 'app-group-modal',
@@ -9,6 +10,7 @@ import { Group } from 'src/app/core/models/group.model';
   styleUrls: ['./group-modal.component.scss'],
 })
 export class GroupModalComponent implements OnInit {
+  countries: string[] = Object.values(Countries);
   formGroup: FormGroup;
   mode: 'new' | 'edit' = 'new';
 
@@ -16,6 +18,7 @@ export class GroupModalComponent implements OnInit {
     if (_group && _group.id) {
       this.mode = 'edit';
       this.formGroup.controls['name'].setValue(_group.name);
+      this.formGroup.controls['country'].setValue(_group.country);
     }
   }
 
@@ -24,7 +27,8 @@ export class GroupModalComponent implements OnInit {
     private modalCtrl: ModalController
   ) {
     this.formGroup = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]]
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      country: ['', [Validators.required]]
     });
   }
 
@@ -32,6 +36,10 @@ export class GroupModalComponent implements OnInit {
 
   get name() {
     return this.formGroup.controls['name'];
+  }
+
+  get country() {
+    return this.formGroup.controls['country'];
   }
 
   getDirtyValues(formGroup: FormGroup): any {
