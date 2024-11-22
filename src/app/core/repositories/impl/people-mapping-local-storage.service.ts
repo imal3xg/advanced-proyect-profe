@@ -15,7 +15,10 @@ interface PersonRaw{
     email:string,
     genero:string,
     picture:{
-        large:string
+        url:string,
+        large:string,
+        medium:string,
+        small:string,
         thumbnail:string
     }
 }
@@ -45,7 +48,10 @@ interface PersonRaw{
             email:data.email,
             gender:data.genero,
             picture:{
+                url:data.picture.url,
                 large:data.picture.large, 
+                medium:data.picture.medium,
+                small:data.picture.small,
                 thumbnail:data.picture.thumbnail
             }};
     }

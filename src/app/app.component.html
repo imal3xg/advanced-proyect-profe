@@ -10,22 +10,43 @@
     <ion-content class="ion-padding">
       <ion-list>
         <!-- Enlaces a las rutas de la aplicación -->
-        <ion-item routerLink="/home" routerDirection="root">
+        <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" routerLink="/home" routerDirection="root">
           <ion-label>Home</ion-label>
         </ion-item>
-        <ion-item routerLink="/people" routerDirection="root">
+        <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" routerLink="/people" routerDirection="root">
           <ion-label>People</ion-label>
         </ion-item>
-        <ion-item routerLink="/groups" routerDirection="root">
+        <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" routerLink="/groups" routerDirection="root">
           <ion-label>Groups</ion-label>
         </ion-item>
-        <ion-item routerLink="/about" routerDirection="root">
+        <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" routerLink="/about" routerDirection="root">
           <ion-label>About</ion-label>
         </ion-item>
-        <ion-item routerLink="/frontpage" routerDirection="root">
+        <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" (click)="logout()" class="session-button">
           <ion-label>Cerrar sesión</ion-label>
         </ion-item>
       </ion-list>
+
+<!--
+<ion-list>
+  <ion-item (click)="closeMenu()" routerLink="/home" routerDirection="root">
+    <ion-label>Home</ion-label>
+  </ion-item>
+  <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" routerLink="/people" routerDirection="root">
+    <ion-label>People</ion-label>
+  </ion-item>
+  <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" routerLink="/groups" routerDirection="root">
+    <ion-label>Groups</ion-label>
+  </ion-item>
+  <ion-item routerLink="/about" routerDirection="root">
+    <ion-label>About</ion-label>
+  </ion-item>
+  <ion-item (click)="closeMenu()" *ngIf="(authSvc.authenticated$ | async)" (click)="logout()" button>
+    <ion-label>Cerrar sesión</ion-label>
+  </ion-item>
+</ion-list>
+-->
+
     </ion-content>
   </ion-menu>
   <!-- Contenido principal (sin encabezado) -->

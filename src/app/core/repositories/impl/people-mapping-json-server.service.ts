@@ -73,13 +73,18 @@ export interface PersonRaw {
             age:(data as any)["edad"]??0,
             birthdate:(data as any)["fecha de nacimiento"]??'',
             email:(data as any)["email"]??'',
-            groupId:(data as any)["groupId"]??'',
+            groupId:(data as any)["grupoId"]??'',
             gender:this.fromGenderMapping[data.genero],
             picture:(data as any)["picture"]?{
+                url:(data as any)["picture"].url,
                 large:(data as any)["picture"].large, 
+                medium:(data as any)["picture"].medium,
+                small:(data as any)["picture"].small,
                 thumbnail:(data as any)["picture"].thumbnail
-            }:undefined};
+            }: undefined
+        };
     }
+    
     getAdded(data: PersonRaw):Person {
         return this.getOne(data);
     }
