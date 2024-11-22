@@ -46,11 +46,7 @@ export class MyPeopleService{
                     birthdate:d.birthdate,
                     age:(d as any)["age"]??0,
                     gender:d.genero,
-                    picture:(d as any)["picture"]?{
-                        large:(d as any)["picture"].large, 
-                        thumbnail:(d as any)["picture"].thumbnail
-                    }:undefined};
-            })};
+            }})};
         }))
     }
 }
