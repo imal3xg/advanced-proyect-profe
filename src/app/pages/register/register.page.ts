@@ -14,6 +14,7 @@ import { passwordValidator, passwordsMatchValidator } from 'src/app/core/utils/v
 export class RegisterPage {
 
   registerForm: FormGroup;
+  genders: string[] = ['Masculino', 'Femenino', 'Otros'];
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,8 @@ export class RegisterPage {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
+      birthdate: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, passwordValidator]],
       confirmPassword: ['', [Validators.required]]
@@ -64,12 +67,39 @@ export class RegisterPage {
     this.router.navigate(['/login'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
   }
 
+  // Function to calculate age based on birthdate
+  calculateAge() {
+    const birthDate = new Date(this.registerForm.controls['birthdate'].value);
+    if (birthDate) {
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      this.calculatedAge = age; // Store the calculated age
+    } else {
+      this.calculatedAge = null; // Reset age if birthdate is invalid
+    }
+  }
+
+  // Store the calculated age
+  calculatedAge: number | null = null;
+
   get name(){
     return this.registerForm.controls['name'];
   }
 
   get surname(){
     return this.registerForm.controls['surname'];
+  }
+  
+  get birthdate(){
+    return this.registerForm.controls['birthdate'];
+  }
+
+  get gender(){
+    return this.registerForm.controls['gender'];
   }
 
   get email(){

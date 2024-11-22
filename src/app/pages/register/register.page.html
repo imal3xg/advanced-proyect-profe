@@ -6,30 +6,72 @@
 
 <ion-content [fullscreen]="true" scrollY="true">
   <div class="register-container">
-    
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Sección principal -->
       <ion-grid>
         <ion-row>
           <ion-col style="display:flex" class="ion-justify-content-center">
-            <ion-text><h1>Crear un cuenta</h1></ion-text>
+            <ion-text><h1>Crear una cuenta</h1></ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <!-- Pregunta sobre cuenta existente -->
       <ion-grid>
         <ion-row>
           <ion-col style="display:flex" class="ion-justify-content-center ion-align-items-center">
-            ¿Tienes una cuenta?<ion-button style="text-transform:none" (click)="onLogin()" fill="clear">Inicia sesión</ion-button>
+            ¿Tienes una cuenta?
+            <ion-button style="text-transform:none" (click)="onLogin()" fill="clear">
+              Inicia sesión
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <!-- Campos del formulario -->
       <ion-item>
         <ion-input labelPlacement="floating" label="Nombre" type="text" formControlName="name" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-input labelPlacement="floating" label="Apellidos" type="text" formControlName="surname" required></ion-input>
       </ion-item>
+
+      <!-- Fecha de nacimiento -->
+      <ion-item class="fechanac">
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
+        <ion-input
+          type="date" 
+          formControlName="birthdate" 
+          (ionChange)="calculateAge()">
+        </ion-input>
+        <!-- Mostrar la edad -->
+        <ion-text *ngIf="calculatedAge !== null">
+          <p>Edad: {{ calculatedAge }} años</p>
+        </ion-text>
+      </ion-item>
+      <ion-text color="danger" *ngIf="birthdate?.invalid && birthdate?.touched">
+        <p *ngIf="birthdate?.errors?.['required']">La fecha de nacimiento es obligatoria.</p>
+        <p *ngIf="birthdate?.errors?.['pattern']">Introduce una fecha válida.</p>
+      </ion-text>
+
+      <!-- Género -->
       <ion-item>
-        <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email" autocomplete="off" required></ion-input>
+        <ion-select
+          label="Género"
+          labelPlacement="stacked"
+          formControlName="gender"
+          placeholder="Selecciona un género">
+          <ion-select-option *ngFor="let gen of genders" [value]="gen">
+            {{ gen }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
+        <p>*El género es obligatorio</p>
+      </ion-text>
+
+      <ion-item>
+        <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-input labelPlacement="floating" label="Contraseña" type="password" formControlName="password" required></ion-input>
@@ -37,25 +79,27 @@
       <ion-item>
         <ion-input labelPlacement="floating" label="Repita contraseña" type="password" formControlName="confirmPassword" required></ion-input>
       </ion-item>
-      <ion-text class="input-error" color="danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
-        <p *ngIf="name?.errors?.['required']">*Debe introducir su nombre</p>
+
+      <!-- Mensajes de error -->
+      <ion-text color="danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <p>*Debe introducir su nombre</p>
         <p *ngIf="name?.errors?.['minlength']">*El nombre debe tener al menos dos caracteres</p>
       </ion-text>
-      <ion-text class="input-error" color="danger" *ngIf="surname?.invalid && (surname?.dirty || surname?.touched)">
-        <p *ngIf="surname?.errors?.['required']">*Debe introducir su/s apellido/s</p>
-        <p *ngIf="surname?.errors?.['minlength']">*Su/s apellido/s debe/n tener al menos dos caracteres</p>
+      <ion-text color="danger" *ngIf="surname?.invalid && (surname?.dirty || surname?.touched)">
+        <p>*Debe introducir su apellido</p>
+        <p *ngIf="surname?.errors?.['minlength']">*El apellido debe tener al menos dos caracteres</p>
       </ion-text>
-      <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-        <p *ngIf="email?.errors?.['required']">*Debe introducir un email</p>
-        <p *ngIf="email?.errors?.['email']">*Debe introducir un email correcto</p>
+      <ion-text color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+        <p>*Debe introducir un email válido</p>
       </ion-text>
-      <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-        <p *ngIf="password?.errors?.['required']">*Debe introducir una contraseña</p>
-        <p *ngIf="password?.errors?.['passwordStrength']">*Al menos 8 caracteres, una mayúscula, una minúscula, un dígito y un caracter especial (&#64;$!%*?&.)</p>
+      <ion-text color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <p>*Debe introducir una contraseña válida</p>
       </ion-text>
-      <ion-text class="input-error" color="danger" *ngIf="registerForm.errors?.['passwordsMismatch']">
+      <ion-text color="danger" *ngIf="registerForm.errors?.['passwordsMismatch']">
         <p>*Las contraseñas no coinciden</p>
       </ion-text>
+
+      <!-- Botón de envío -->
       <ion-button style="text-transform:none" expand="block" type="submit" [disabled]="registerForm.invalid">
         Crear cuenta
       </ion-button>
